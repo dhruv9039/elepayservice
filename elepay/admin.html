@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ElePay Admin Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: #111827;
+      --border: #1f2937;
+      --border-light: #374151;
+      --primary: #0284c7;
+      --primary-hover: #0369a1;
+      --text: #f9fafb;
+      --text-muted: #9ca3af;
+      --emerald: #10b981;
+      --amber: #f59e0b;
+      --rose: #f43f5e;
+      --font: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 24px 16px;
+    }
+
+    .admin-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Top Nav */
+    .admin-nav {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo-img {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+    }
+
+    .nav-title {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .nav-badge {
+      background: #1f2937;
+      border: 1px solid var(--border-light);
+      color: #93c5fd;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 9999px;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-portal-link {
+      background: transparent;
+      border: 1px solid var(--border-light);
+      color: var(--text);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .btn-portal-link:hover {
+      background: #1f2937;
+    }
+
+    .btn-refresh {
+      background: var(--primary);
+      border: none;
+      color: white;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-refresh:hover {
+      background: var(--primary-hover);
+    }
+
+    /* Stats Cards Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .stat-value {
+      font-size: 24px;
+      font-weight: 800;
+      font-family: var(--mono);
+      color: #ffffff;
+    }
+
+    .stat-value.highlight-blue { color: #38bdf8; }
+    .stat-value.highlight-amber { color: #fbbf24; }
+    .stat-value.highlight-emerald { color: #34d399; }
+
+    /* Tabs Bar */
+    .tabs-bar {
+      display: flex;
+      gap: 8px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+
+    .admin-tab {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .admin-tab:hover {
+      color: #ffffff;
+    }
+
+    .admin-tab.active {
+      background: #1f2937;
+      color: #ffffff;
+      border-color: var(--border-light);
+    }
+
+    /* Tables */
+    .table-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .table-header-bar {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .table-title {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13px;
+    }
+
+    th {
+      background: #0f172a;
+      padding: 12px 16px;
+      color: var(--text-muted);
+      font-weight: 600;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid #1f2937;
+      color: #cbd5e1;
+      vertical-align: middle;
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .mono-cell {
+      font-family: var(--mono);
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: capitalize;
+    }
+
+    .badge-pending, .badge-under_review {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .badge-verified, .badge-resolved {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .badge-rejected {
+      background: rgba(244, 63, 94, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(244, 63, 94, 0.3);
+    }
+
+    /* Action buttons in tables */
+    .action-group {
+      display: flex;
+      gap: 6px;
+    }
+
+    .btn-act {
+      border: none;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-act-approve {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-act-reject {
+      background: rgba(244, 63, 94, 0.2);
+      color: #f87171;
+      border: 1px solid rgba(244, 63, 94, 0.3);
+    }
+
+    .btn-act-resolve {
+      background: #0284c7;
+      color: white;
+    }
+
+    .btn-thumb-view {
+      background: #1f2937;
+      border: 1px solid var(--border-light);
+      color: #38bdf8;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-thumb-view:hover {
+      background: #374151;
+    }
+
+    .empty-state {
+      padding: 30px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13.5px;
+    }
+
+    /* Image Modal */
+    dialog#imageModal {
+      margin: auto;
+      background: #111827;
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 16px;
+      max-width: 500px;
+      width: 90%;
+      color: white;
+    }
+
+    dialog#imageModal::backdrop {
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    .modal-img-wrapper {
+      text-align: center;
+    }
+
+    .modal-img-wrapper img {
+      max-width: 100%;
+      max-height: 70vh;
+      object-fit: contain;
+      border-radius: 8px;
+      border: 1px solid #374151;
+    }
+
+    .modal-img-close {
+      margin-top: 10px;
+      width: 100%;
+      background: #374151;
+      border: none;
+      color: white;
+      padding: 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="admin-container">
+    
+    <!-- Top Nav -->
+    <header class="admin-nav">
+      <div class="nav-brand">
+        <img src="assets/logo.png" alt="ElePay Logo" class="brand-logo-img" />
+        <h1 class="nav-title">ElePay Control Panel</h1>
+        <span class="nav-badge">Team ElePay Service</span>
+      </div>
+      <div class="nav-actions">
+        <a href="/" target="_blank" class="btn-portal-link">Open Customer Portal ↗</a>
+        <button type="button" class="btn-refresh" id="refreshBtn">↻ Refresh Data</button>
+      </div>
+    </header>
+
+    <!-- Stats Grid -->
+    <section class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-label">Total Revenue</span>
+        <span class="stat-value highlight-emerald" id="statRevenue">₹0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Total Orders</span>
+        <span class="stat-value highlight-blue" id="statOrders">0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Pending Verification</span>
+        <span class="stat-value highlight-amber" id="statPendingPayments">0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Dispute / Problem Tickets</span>
+        <span class="stat-value highlight-amber" id="statPendingProblems">0</span>
+      </div>
+    </section>
+
+    <!-- View Switch Tabs -->
+    <div class="tabs-bar">
+      <button type="button" class="admin-tab active" id="tabPaymentsBtn">💳 Incoming Payments (<span id="countPayments">0</span>)</button>
+      <button type="button" class="admin-tab" id="tabProblemsBtn">⚠️ Problem Tickets (<span id="countProblems">0</span>)</button>
+    </div>
+
+    <!-- Section 1: Payments Table -->
+    <section class="table-card" id="paymentsSection">
+      <div class="table-header-bar">
+        <h2 class="table-title">Customer Payments</h2>
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Customer UID</th>
+              <th>Amount</th>
+              <th>Method</th>
+              <th>Status</th>
+              <th>Time</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="paymentsTbody">
+            <tr><td colspan="7" class="empty-state">Loading payments...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 2: Problems Table -->
+    <section class="table-card" id="problemsSection" style="display: none;">
+      <div class="table-header-bar">
+        <h2 class="table-title">Customer Problem Reports & UTR Details</h2>
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Ticket ID</th>
+              <th>UID</th>
+              <th>Amount</th>
+              <th>Bank UTR No.</th>
+              <th>Problem Description</th>
+              <th>Screenshot</th>
+              <th>Status</th>
+              <th>Time</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="problemsTbody">
+            <tr><td colspan="9" class="empty-state">Loading problem tickets...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Screenshot Zoom Modal -->
+  <dialog id="imageModal">
+    <div class="modal-img-wrapper">
+      <img id="modalPreviewImg" src="" alt="Payment Screenshot" />
+      <button type="button" class="modal-img-close" id="closeImageModalBtn">Close Screenshot</button>
+    </div>
+  </dialog>
+
+  <script>
+    const statRevenue = document.getElementById('statRevenue');
+    const statOrders = document.getElementById('statOrders');
+    const statPendingPayments = document.getElementById('statPendingPayments');
+    const statPendingProblems = document.getElementById('statPendingProblems');
+    const countPayments = document.getElementById('countPayments');
+    const countProblems = document.getElementById('countProblems');
+
+    const tabPaymentsBtn = document.getElementById('tabPaymentsBtn');
+    const tabProblemsBtn = document.getElementById('tabProblemsBtn');
+    const paymentsSection = document.getElementById('paymentsSection');
+    const problemsSection = document.getElementById('problemsSection');
+    const refreshBtn = document.getElementById('refreshBtn');
+
+    const paymentsTbody = document.getElementById('paymentsTbody');
+    const problemsTbody = document.getElementById('problemsTbody');
+
+    const imageModal = document.getElementById('imageModal');
+    const modalPreviewImg = document.getElementById('modalPreviewImg');
+    const closeImageModalBtn = document.getElementById('closeImageModalBtn');
+
+    // Switch Tabs
+    tabPaymentsBtn.addEventListener('click', () => {
+      tabPaymentsBtn.classList.add('active');
+      tabProblemsBtn.classList.remove('active');
+      paymentsSection.style.display = 'block';
+      problemsSection.style.display = 'none';
+    });
+
+    tabProblemsBtn.addEventListener('click', () => {
+      tabProblemsBtn.classList.add('active');
+      tabPaymentsBtn.classList.remove('active');
+      problemsSection.style.display = 'block';
+      paymentsSection.style.display = 'none';
+    });
+
+    // Close image modal
+    closeImageModalBtn.addEventListener('click', () => imageModal.close());
+    imageModal.addEventListener('click', (e) => {
+      if (e.target === imageModal) imageModal.close();
+    });
+
+    function viewImage(url) {
+      modalPreviewImg.src = url;
+      imageModal.showModal();
+    }
+
+    // Fetch Overview Stats
+    async function fetchStats() {
+      try {
+        const res = await fetch('/api/admin/overview');
+        if (!res.ok) return;
+        const data = await res.json();
+        statRevenue.textContent = '₹' + Number(data.totalRevenue).toLocaleString('en-IN');
+        statOrders.textContent = data.totalPayments;
+        statPendingPayments.textContent = data.pendingPayments;
+        statPendingProblems.textContent = data.pendingProblems;
+      } catch (e) {
+        console.error('Stats error:', e);
+      }
+    }
+
+    // Fetch Payments
+    async function fetchPayments() {
+      try {
+        const res = await fetch('/api/admin/payments');
+        if (!res.ok) throw new Error('API failed');
+        const data = await res.json();
+        const payments = data.payments || [];
+        countPayments.textContent = payments.length;
+
+        if (payments.length === 0) {
+          paymentsTbody.innerHTML = `<tr><td colspan="7" class="empty-state">Abhi koi payment submit nahi hui hai.</td></tr>`;
+          return;
+        }
+
+        paymentsTbody.innerHTML = payments.map(p => {
+          const time = new Date(p.created_at).toLocaleString('en-IN', { dateStyle: 'short', timeStyle: 'short' });
+          return `
+            <tr>
+              <td class="mono-cell">#${p.id}</td>
+              <td class="mono-cell" style="color: #38bdf8;">${escapeHtml(p.uid)}</td>
+              <td class="mono-cell">₹${p.amount}</td>
+              <td><span style="text-transform: uppercase; font-size: 11px;">${p.method}</span></td>
+              <td><span class="badge badge-${p.status}">${p.status}</span></td>
+              <td style="font-size: 11.5px; color: #94a3b8;">${time}</td>
+              <td>
+                <div class="action-group">
+                  ${p.status === 'pending' ? `
+                    <button class="btn-act btn-act-approve" onclick="updatePayment(${p.id}, 'verified')">Approve</button>
+                    <button class="btn-act btn-act-reject" onclick="updatePayment(${p.id}, 'rejected')">Reject</button>
+                  ` : `<span style="font-size: 11px; color: #94a3b8;">Done</span>`}
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      } catch (e) {
+        paymentsTbody.innerHTML = `<tr><td colspan="7" class="empty-state">Error loading payments. Backend running?</td></tr>`;
+      }
+    }
+
+    // Fetch Problems
+    async function fetchProblems() {
+      try {
+        const res = await fetch('/api/admin/problems');
+        if (!res.ok) throw new Error('API failed');
+        const data = await res.json();
+        const problems = data.problems || [];
+        countProblems.textContent = problems.length;
+
+        if (problems.length === 0) {
+          problemsTbody.innerHTML = `<tr><td colspan="9" class="empty-state">Koi problem ticket darj nahi hai.</td></tr>`;
+          return;
+        }
+
+        problemsTbody.innerHTML = problems.map(prob => {
+          const time = new Date(prob.created_at).toLocaleString('en-IN', { dateStyle: 'short', timeStyle: 'short' });
+          return `
+            <tr>
+              <td class="mono-cell" style="color: #fbbf24;">${escapeHtml(prob.ticket_id)}</td>
+              <td class="mono-cell" style="color: #38bdf8;">${escapeHtml(prob.uid)}</td>
+              <td class="mono-cell">₹${prob.amount}</td>
+              <td class="mono-cell" style="color: #ffffff;">${escapeHtml(prob.utr_number)}</td>
+              <td style="max-width: 250px; line-height: 1.4; font-size: 12px;">${escapeHtml(prob.description)}</td>
+              <td>
+                ${prob.screenshot_url ? `
+                  <button class="btn-thumb-view" onclick="viewImage('${prob.screenshot_url}')">📷 View Photo</button>
+                ` : `<span style="color: #64748b; font-size: 11px;">No Image</span>`}
+              </td>
+              <td><span class="badge badge-${prob.status}">${prob.status.replace('_', ' ')}</span></td>
+              <td style="font-size: 11px; color: #94a3b8;">${time}</td>
+              <td>
+                ${prob.status === 'under_review' ? `
+                  <button class="btn-act btn-act-resolve" onclick="updateProblem('${prob.ticket_id}', 'resolved')">Resolve</button>
+                ` : `<span style="font-size: 11px; color: #34d399;">Resolved</span>`}
+              </td>
+            </tr>
+          `;
+        }).join('');
+      } catch (e) {
+        problemsTbody.innerHTML = `<tr><td colspan="9" class="empty-state">Error loading tickets.</td></tr>`;
+      }
+    }
+
+    async function updatePayment(id, status) {
+      try {
+        await fetch(`/api/admin/payments/${id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status })
+        });
+        refreshAll();
+      } catch (e) {
+        alert('Update error: ' + e.message);
+      }
+    }
+
+    async function updateProblem(ticketId, status) {
+      try {
+        await fetch(`/api/admin/problems/${encodeURIComponent(ticketId)}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status })
+        });
+        refreshAll();
+      } catch (e) {
+        alert('Update error: ' + e.message);
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str).replace(/[&<>"']/g, s => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[s]);
+    }
+
+    function refreshAll() {
+      fetchStats();
+      fetchPayments();
+      fetchProblems();
+    }
+
+    refreshBtn.addEventListener('click', refreshAll);
+    refreshAll();
+  </script>
+</body>
+</html>
+

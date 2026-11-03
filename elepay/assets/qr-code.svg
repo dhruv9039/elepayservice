@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="100%" height="100%">
+  <defs>
+    <linearGradient id="elepayGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="300" height="300" fill="#ffffff" rx="16"/>
+  
+  <!-- Outer Finder Pattern Top-Left -->
+  <rect x="24" y="24" width="64" height="64" rx="8" fill="#1e1b4b"/>
+  <rect x="34" y="34" width="44" height="44" rx="4" fill="#ffffff"/>
+  <rect x="42" y="42" width="28" height="28" rx="4" fill="url(#elepayGrad)"/>
+
+  <!-- Outer Finder Pattern Top-Right -->
+  <rect x="212" y="24" width="64" height="64" rx="8" fill="#1e1b4b"/>
+  <rect x="222" y="34" width="44" height="44" rx="4" fill="#ffffff"/>
+  <rect x="230" y="42" width="28" height="28" rx="4" fill="url(#elepayGrad)"/>
+
+  <!-- Outer Finder Pattern Bottom-Left -->
+  <rect x="24" y="212" width="64" height="64" rx="8" fill="#1e1b4b"/>
+  <rect x="34" y="222" width="44" height="44" rx="4" fill="#ffffff"/>
+  <rect x="42" y="230" width="28" height="28" rx="4" fill="url(#elepayGrad)"/>
+
+  <!-- QR Pattern Data Blocks -->
+  <!-- Row 1 -->
+  <rect x="104" y="26" width="14" height="14" rx="2" fill="#312e81"/>
+  <rect x="124" y="26" width="14" height="14" rx="2" fill="#1e1b4b"/>
+  <rect x="144" y="26" width="14" height="14" rx="2" fill="#312e81"/>
+  <rect x="176" y="26" width="14" height="14" rx="2" fill="#1e1b4b"/>
+  
+  <!-- Row 2 -->
+  <rect x="104" y="46" width="14" height="14" rx="2" fill="#1e1b4b"/>
+  <rect x="144" y="46" width="14" height="14" rx="2" fill="#4338ca"/>
+  <rect x="164" y="46" width="14" height="14" rx="2" fill="#1e1b4b"/>
+  <rect x="184" y="46" width="14" height="14" rx="2" fill="#312e81"/>
+
+  <!-- Row 3 -->
+  <rect x="104" y="66" width="24" height="14" rx="2" fill="#1e1b4b"/>
+  <rect x="136" y="66" width="14" height="14" rx="2" fill="#312e81"/>
+  <rect x="164" y="66" width="24" height="14" rx="2" fill="#1e1b4b"/>
+
+  <!-- Middle horizontal band -->
+  <rect x="26" y="104" width="14" height="24" rx="2" fill="#1e1b4b"/>
+  <rect x="48" y="104" width="20" height="14" rx="2" fill="#312e81"/>
+  <rect x="76" y="104" width="14" height="14" rx="2" fill="#1e1b4b"/>
+  <rect x="104" y="96" width="14" height="24" rx="2" fill="#4338ca"/>
+  <rect x="180" y="96" width="24" height="14" rx="2" fill="#1e1b4b"/>
+  <rect x="214" y="104" width="24" height="14" rx="2" fill="#312e81"/>
+  <rect x="246" y="104" width="24" height="14" rx="2" fill="#1e1b4b"/>
+
+  <!-- Center Logo Badge -->
+  <circle cx="150" cy="150" r="34" fill="#ffffff" stroke="#e0e7ff" stroke-width="3"/>
+  <circle cx="150" cy="150" r="28" fill="url(#elepayGrad)"/>
+  <!-- Bolt icon inside center badge -->
+  <path d="M152 134 L140 150 L148 150 L146 166 L160 148 L152 148 Z" fill="#ffffff"/>
+
+  <!-- Lower pattern -->
+  <rect x="104" y="180" width="14" height="24" rx="2" fill="#1e1b4b"/>
+  <rect x="126" y="180" width="24" height="14" rx="2" fill="#312e81"/>
+  <rect x="160" y="180" width="14" height="24" rx="2" fill="#4338ca"/>
+  <rect x="184" y="180" width="14" height="14" rx="2" fill="#1e1b4b"/>
+
+  <rect x="104" y="214" width="24" height="14" rx="2" fill="#1e1b4b"/>
+  <rect x="136" y="214" width="14" height="14" rx="2" fill="#312e81"/>
+  <rect x="160" y="214" width="24" height="14" rx="2" fill="#1e1b4b"/>
+  <rect x="194" y="214" width="14" height="14" rx="2" fill="#4338ca"/>
+
+  <rect x="104" y="238" width="14" height="26" rx="2" fill="#312e81"/>
+  <rect x="126" y="248" width="24" height="16" rx="2" fill="#1e1b4b"/>
+  <rect x="160" y="248" width="14" height="16" rx="2" fill="#312e81"/>
+  <rect x="184" y="238" width="24" height="26" rx="2" fill="#1e1b4b"/>
+
+  <rect x="214" y="134" width="14" height="30" rx="2" fill="#1e1b4b"/>
+  <rect x="238" y="134" width="34" height="14" rx="2" fill="#312e81"/>
+  <rect x="240" y="160" width="24" height="24" rx="2" fill="#4338ca"/>
+
+  <rect x="214" y="196" width="20" height="20" rx="2" fill="#1e1b4b"/>
+  <rect x="244" y="196" width="28" height="14" rx="2" fill="#312e81"/>
+  <rect x="214" y="226" width="34" height="14" rx="2" fill="#4338ca"/>
+  <rect x="256" y="220" width="16" height="30" rx="2" fill="#1e1b4b"/>
+  <rect x="224" y="250" width="46" height="14" rx="2" fill="#1e1b4b"/>
+</svg>
+

@@ -1,0 +1,20 @@
+{
+  "name": "elepay-server",
+  "version": "1.0.0",
+  "description": "ElePay Payment Gateway & Problem Resolution Backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "elepay",
+    "payment",
+    "gateway",
+    "upi",
+    "qr"
+  ],
+  "author": "ElePay Team",
+  "license": "ISC"
+}
+
